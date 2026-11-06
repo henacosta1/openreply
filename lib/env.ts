@@ -50,6 +50,15 @@ export function getMetaGraphApiVersion(): string {
   return process.env.META_GRAPH_API_VERSION ?? "v25.0";
 }
 
+// Meta apps created from October 2026 no longer offer "API setup with
+// Instagram login", only "Unified login" (upstream issue #104). Setting the
+// login configuration's ID switches OAuth to facebook.com/dialog/oauth and the
+// Graph calls to graph.facebook.com. INSTAGRAM_APP_ID / INSTAGRAM_APP_SECRET
+// then hold the Meta app's own ID and secret (App settings > Basic).
+export function isUnifiedLogin(): boolean {
+  return Boolean(process.env.META_LOGIN_CONFIG_ID);
+}
+
 /**
  * The public demo, and the only host where sign-in is blocked. This repo is
  * something other people clone and deploy; a self-hoster's own domain must

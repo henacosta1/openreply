@@ -122,11 +122,23 @@ describe("Instagram provider boundary", () => {
     respond({ data: [{ id: "media" }] });
     expect(
       await getUserMedia({
-        context: { provider: "META", accessToken: "meta" },
+        context: { provider: "META", accessToken: "meta", instagramId: "ig1" },
         limit: 3,
       })
     ).toEqual([{ id: "media" }]);
-    expect(fetchMock.mock.calls[0][0]).toContain("graph.instagram.com");
+    expect(fetchMock.mock.calls[0][0]).toContain("graph.instagram.com/v");
+    expect(fetchMock.mock.calls[0][0]).toContain("/me/media");
+  });
+  it("addresses the account by ID on graph.facebook.com under Unified login", async () => {
+    vi.stubEnv("META_LOGIN_CONFIG_ID", "cfg");
+    respond({ data: [{ id: "media" }] });
+    await getUserMedia({
+      context: { provider: "META", accessToken: "meta", instagramId: "ig1" },
+      limit: 3,
+    });
+    expect(fetchMock.mock.calls[0][0]).toContain("graph.facebook.com/v");
+    expect(fetchMock.mock.calls[0][0]).toContain("/ig1/media");
+    vi.unstubAllEnvs();
   });
   it.each([
     [429, RateLimitError],
