@@ -1,0 +1,8 @@
+# Secrets and local build output never go up with a CLI deploy.
+.env
+.env.*
+!.env.example
+node_modules
+.next
+.vercel
+app/generated
