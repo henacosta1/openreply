@@ -1,4 +1,7 @@
-# Read-only API and MCP
+# API and MCP
+
+Keys are read-only by default. Ticking **Allow creating, editing and going
+live with campaigns** adds the `campaigns:write` scope (see "Write access").
 
 Workspace owners and admins can create keys at **API & MCP** (`/integrations`).
 The UI offers 30, 60 or 90 days (default: 30). The API accepts whole days from
@@ -45,6 +48,24 @@ Tools (all read-only; scope `campaigns:read`):
 Example safe verification: ask your client to list campaigns, then read one
 campaign's destination URLs without changing anything. There are no mutation,
 activation, publish, account-token or messaging tools in this contribution.
+
+Read tools also include `list_instagram_accounts` (ids, usernames and webhook
+status of connected accounts; never tokens).
+
+## Write access (`campaigns:write`)
+
+Keys with `campaigns:write` also get:
+
+- `create_campaign`: same fields and validation as the dashboard builder
+  (`lib/campaigns/mutations.ts` is shared by both). Campaigns start **paused**
+  unless `isActive: true` is passed, because a live campaign sends real DMs.
+  Unknown fields are rejected instead of silently dropped.
+- `update_campaign` with `{ "id": "...", "changes": { ... } }`: omitted fields
+  stay unchanged.
+- `set_campaign_active` with `{ "id": "...", "isActive": true | false }`.
+
+There is still no delete tool, no token access and no tool that sends a
+message directly. Everything stays workspace-scoped. REST remains read-only.
 
 ## REST
 

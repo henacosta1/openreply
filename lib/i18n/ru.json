@@ -389,7 +389,6 @@
   "Worker health": "Состояние обработчика",
   "Workspace": "Рабочее пространство",
   "Workspace invitation": "Приглашение в рабочее пространство",
-  "Workspace-scoped, read-only keys. No key can modify campaigns or send messages. Only admins and owners can manage keys.": "Ключи только для чтения, ограниченные рабочим пространством. Ни один ключ не может изменять кампании или отправлять сообщения. Управлять ключами могут только администраторы и владельцы.",
   "Write a message": "Напишите сообщение",
   "Write a reply…  (Enter to send, Shift+Enter for a new line)": "Напишите ответ…  (Enter — отправить, Shift+Enter — новая строка)",
   "You declined the permission prompt on Instagram. Start again and accept all requested permissions.": "Вы отклонили запрос разрешений в Instagram. Начните заново и примите все запрошенные разрешения.",
@@ -468,5 +467,8 @@
   "{name} Campaign Report": "Отчёт по кампании «{name}»",
   "{type} post": "Пост {type}",
   "”": "»",
-  "← Campaigns": "← Кампании"
+  "← Campaigns": "← Кампании",
+  "Workspace-scoped keys. Read keys only view campaigns; keys with write access can also create, edit and go live with campaigns. No key can read tokens or send a message directly. Only admins and owners can manage keys.": "Ключи ограничены рабочим пространством. Ключи чтения только просматривают кампании; ключи с правом записи также могут создавать, изменять и запускать кампании. Ни один ключ не может читать токены или напрямую отправлять сообщения. Управлять ключами могут только администраторы и владельцы.",
+  "Allow creating, editing and going live with campaigns (campaigns:write)": "Разрешить создавать, изменять и запускать кампании (campaigns:write)",
+  "Create a workspace key that can create, edit and go live with campaigns for {days} days? Live campaigns send real DMs.": "Создать ключ рабочего пространства на {days} дн., который может создавать, изменять и запускать кампании? Запущенные кампании отправляют настоящие личные сообщения."
 }

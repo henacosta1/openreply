@@ -94,6 +94,11 @@ describe("key management", () => {
     expect((await createKey(request({}))).status).toBe(403);
     expect((await revokeKey(new Request("https://example.test/api/integrations/keys?id=key"))).status).toBe(403);
   });
+  it("creates read+write keys only with known scopes", async () => {
+    expect((await createKey(request({ name: "Writer", scopes: ["campaigns:read", "campaigns:write"] }))).status).toBe(201);
+    expect(state.keys.create.mock.calls[0][0].data.scopes).toEqual(["campaigns:read", "campaigns:write"]);
+    expect((await createKey(request({ name: "Writer", scopes: ["campaigns:read", "campaigns:write", "campaigns:read"] }))).status).toBe(400);
+  });
   it("rejects write scopes and foreign Origins", async () => {
     expect((await createKey(request({ name: "Reader", scopes: ["drafts:write"] }))).status).toBe(400);
     expect((await createKey(request({}, { origin: "https://evil.test" }))).status).toBe(403);
@@ -114,10 +119,12 @@ describe("key management", () => {
 describe("read-only MCP and REST", () => {
   it("advertises only scoped read-only tools", async () => {
     expect(listTools({ ...context, scopes: [] })).toEqual([]);
-    expect(listTools(context).map(tool => tool.name)).toEqual(["list_campaigns", "get_campaign", "get_campaign_stats"]);
+    expect(listTools(context).map(tool => tool.name)).toEqual(["list_campaigns", "get_campaign", "get_campaign_stats", "list_instagram_accounts"]);
     expect(listTools(context).every(tool => tool.annotations.readOnlyHint)).toBe(true);
     await expect(callTool(context, "create_draft", {})).rejects.toMatchObject({ status: 404 });
     await expect(callTool({ ...context, scopes: [] }, "get_campaign", { id: "test" })).rejects.toMatchObject({ status: 403 });
+    await expect(callTool(context, "create_campaign", { name: "x", dmMessage: "x" })).rejects.toMatchObject({ status: 403 });
+    await expect(callTool(context, "set_campaign_active", { id: "test", isActive: true })).rejects.toMatchObject({ status: 403 });
   });
   it("negotiates MCP, handles notifications and rejects unsupported methods", async () => {
     const response = await mcp(request({ jsonrpc: "2.0", id: 1, method: "initialize", params: { protocolVersion: "2025-11-25", capabilities: {}, clientInfo: { name: "test", version: "1" } } }));

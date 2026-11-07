@@ -389,7 +389,6 @@
   "Worker health": "Saúde do worker",
   "Workspace": "Espaço de trabalho",
   "Workspace invitation": "Convite para o espaço de trabalho",
-  "Workspace-scoped, read-only keys. No key can modify campaigns or send messages. Only admins and owners can manage keys.": "Chaves somente leitura, restritas ao espaço de trabalho. Nenhuma chave pode modificar campanhas nem enviar mensagens. Somente administradores e proprietários podem gerenciar chaves.",
   "Write a message": "Escreva uma mensagem",
   "Write a reply…  (Enter to send, Shift+Enter for a new line)": "Escreva uma resposta…  (Enter para enviar, Shift+Enter para nova linha)",
   "You declined the permission prompt on Instagram. Start again and accept all requested permissions.": "Você recusou a solicitação de permissão no Instagram. Comece novamente e aceite todas as permissões solicitadas.",
@@ -468,5 +467,8 @@
   "{name} Campaign Report": "Relatório da campanha {name}",
   "{type} post": "Publicação {type}",
   "”": "”",
-  "← Campaigns": "← Campanhas"
+  "← Campaigns": "← Campanhas",
+  "Workspace-scoped keys. Read keys only view campaigns; keys with write access can also create, edit and go live with campaigns. No key can read tokens or send a message directly. Only admins and owners can manage keys.": "Chaves restritas ao espaço de trabalho. Chaves de leitura só veem campanhas; chaves com escrita também podem criar, editar e ativar campanhas. Nenhuma chave lê tokens nem envia mensagem diretamente. Somente administradores e proprietários podem gerenciar chaves.",
+  "Allow creating, editing and going live with campaigns (campaigns:write)": "Permitir criar, editar e ativar campanhas (campaigns:write)",
+  "Create a workspace key that can create, edit and go live with campaigns for {days} days? Live campaigns send real DMs.": "Criar uma chave do espaço de trabalho que pode criar, editar e ativar campanhas por {days} dias? Campanhas ativas enviam DMs de verdade."
 }
